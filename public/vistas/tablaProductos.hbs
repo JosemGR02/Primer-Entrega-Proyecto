@@ -1,0 +1,29 @@
+
+<div>
+    <h1 class="titulo">Tabla de Productos</h1>
+    <table class="tablaProds">
+        <tr>
+            <th>Título</th>
+            <th>descripcion</th>
+            <th>codigo</th>
+            <th>Imagen</th>
+            <th>Precio</th>
+            <th>Stock</th>
+        </tr>
+        {{#if productos.length}}
+            {{#each productos}}
+                <tr>
+                    <td>{{this.titulo}}</td>
+                    <td>{{this.descripcion}}</td>
+                    <td>{{this.codigo}}</td>
+                    <td><img height="60px" width="60px" src={{this.imagen}} /></td>
+                    <td>$ {{this.precio}}</td>
+                    <td>{{this.stock}}</td>
+                </tr>
+            {{/each}}
+        {{/if}}
+        {{#unless productos}}
+            <h1>No se encontro ningun producto!!</h1>
+        {{/unless}}
+    </table>
+</div>

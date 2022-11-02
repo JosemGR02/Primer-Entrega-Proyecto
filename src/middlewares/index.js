@@ -1,0 +1,1 @@
+export { verificarAdmin } from './verificador.js';

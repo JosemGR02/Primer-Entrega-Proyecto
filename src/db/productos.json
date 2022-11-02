@@ -1,0 +1,32 @@
+[
+   {
+      "titulo": "charizard",
+      "descripcion": "pokemon fuego",
+      "codigo": "aghahha",
+      "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+      "precio": "60000",
+      "stock": "2",
+      "timestamp": "1/11/2022 16:33:20",
+      "id": 1
+   },
+   {
+      "titulo": "Charizard",
+      "descripcion": "pokemon fuego",
+      "codigo": "aghahha",
+      "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+      "precio": "60000",
+      "stock": "2",
+      "timestamp": "1/11/2022 16:33:46",
+      "id": 2
+   },
+   {
+      "titulo": "ahaa",
+      "descripcion": "pokeeee",
+      "codigo": "63gwh3",
+      "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+      "precio": 60000,
+      "stock": 2,
+      "timestamp": "1/11/2022 17:52:59",
+      "id": 3
+   }
+]

@@ -1,0 +1,22 @@
+[
+   {
+      "titulo": "Charizard",
+      "descripcion": "pokemon fuego",
+      "codigo": "1452rwyt671",
+      "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+      "precio": 60000,
+      "stock": 2,
+      "timestamp": "2/11/2022 14:17:17",
+      "id": 2
+   },
+   {
+      "titulo": "pikachu",
+      "descripcion": "pokemon sa",
+      "codigo": "3gfw156g7",
+      "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+      "precio": 60000,
+      "stock": 5,
+      "timestamp": "2/11/2022 14:17:39",
+      "id": 3
+   }
+]
