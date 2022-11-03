@@ -33,7 +33,7 @@ rutaProductos.get('/:id', async (solicitud, respuesta) =>{
 
 rutaProductos.post('/', verificarAdmin, async (solicitud, respuesta) =>{
     try {
-        const { titulo, descripcion, codigo, imagen, precio, stock } = solicitud.body
+        const { titulo, descripcion, codigo, imagen, precio, stock } = solicitud.body;
 
         const producto = await VALIDACION_JOI.productoJoi.validateAsync({
             titulo, descripcion, codigo, imagen, precio, stock, timestamp: FECHA_UTILS.getTimestamp()
@@ -47,16 +47,19 @@ rutaProductos.post('/', verificarAdmin, async (solicitud, respuesta) =>{
     }
 });
 
+// no entiendo porque pero en postman hay que darle send 2 veces para que actualice (capas que me pasa a mi nomas)
 rutaProductos.put('/:id', async (solicitud, respuesta) =>{
     try {
-        const { id } = solicitud.params
-        const productoActualizado = await ProductoDao.actualizar(Number(id));
+        const id = solicitud.params.id;
+        const { titulo, descripcion, codigo, imagen, precio, stock } = solicitud.body;
+        const productoActualizado = await ProductoDao.actualizar(id, { titulo, descripcion, codigo, imagen, precio, stock });
 
-        respuesta.send(productoActualizado)
+        respuesta.send({success: true, actualizado: productoActualizado})
     } catch (error) {
         respuesta.send({error: "Error al actualizar el producto seleccionado"})
     }
 });
+
 
 rutaProductos.delete('/:id', async (solicitud, respuesta) =>{
     try {
@@ -71,7 +74,4 @@ rutaProductos.delete('/:id', async (solicitud, respuesta) =>{
 
 
 export { rutaProductos }
-
-
-
 

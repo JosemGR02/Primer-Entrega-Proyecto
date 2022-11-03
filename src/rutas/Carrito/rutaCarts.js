@@ -6,13 +6,12 @@ import { ProductoDao, CarritoDao } from "../../dao/dao.js";
 const rutaCarrito = Router();
 
 rutaCarrito.post('/', async (solicitud, respuesta) =>{
-    const carritoBase = { timestamp: FECHA_UTILS.getTimestamp(), productos: [] };
-
-    const carrito = await CarritoDao.guardar(carritoBase);
-
-    respuesta.send({ success: true, carritoId: carrito.id });
     try {
-        
+        const carritoBase = { timestamp: FECHA_UTILS.getTimestamp(), productos: [] };
+
+        const carrito = await CarritoDao.guardar(carritoBase);
+
+        respuesta.send({ success: true, carritoId: carrito.id });
     } catch (error) {
         respuesta.send({error: "Error al guardar un carrito"})
     }
@@ -25,13 +24,11 @@ rutaCarrito.post("/:carritoId/productos", async (solicitud, respuesta) => {
 
         const carrito = await CarritoDao.obtenerXid(Number(carritoId));
 
-        if (!carrito)
-            return respuesta.send({ error: true, mensaje: "No se encontro el carrito solicitado"});
+        if (!carrito) return respuesta.send({ error: true, mensaje: "No se encontro el carrito solicitado"});
 
         const producto = await ProductoDao.obtenerXid(Number(productoId));
 
-        if (!producto)
-            return respuesta.send({ error: true, mensaje: "No se encontro el producto solicitado"});
+        if (!producto) return respuesta.send({ error: true, mensaje: "No se encontro el producto solicitado"});
 
         carrito.productos.push(producto);
 
@@ -66,7 +63,7 @@ rutaCarrito.get('/:carritoId/productos', async (solicitud, respuesta) =>{
     }
 });
 
-// ELIMINAR X ID
+// ELIMINAR PRODS X ID
 rutaCarrito.delete('/:carritoId/productos/productoId', async (solicitud, respuesta) =>{
     try {
         const { carritoId } = solicitud.params;
@@ -94,13 +91,13 @@ rutaCarrito.delete('/:carritoId/productos/productoId', async (solicitud, respues
 });
 
 // ELIMINAR TODOS 
-rutaCarrito.delete('/:carritoId/productos', async (solicitud, respuesta) =>{
+rutaCarrito.delete('/:carritoId', async (solicitud, respuesta) =>{
     try {
         const { carritoId } = solicitud.params;
 
         await CarritoDao.eliminarXid(Number(carritoId));
         
-        respuesta.send({success: true, mensaje: "Se elimino correctamente el carrito"})
+        respuesta.send({success: true, mensaje: `Se elimino correctamente el carrito ${carritoId}`})
     } catch (error) {
         respuesta.send({error: "Error al eliminar el carrito seleccionado"})
     }

@@ -1,46 +1,60 @@
-import { API_ROUTES } from "./routes.js";
-import { utils } from "./utils.js";
-
-// para usar import de modules acá en los static, tenemos que en el html, ponerle type="module" al script index.js
-
-const renderProducts = async () => {
-    const productsContainer = document.getElementById("productsContainer");
-
-    const products = await API_ROUTES.getProducts();
-
-    productsContainer.innerHTML = await utils.makeProductTable(products);
-};
-
-const getProductBtn = document.getElementById("getProductsBtn");
-
-getProductBtn.addEventListener("click", renderProducts);
-
-// por supuesto podriamos cargar los productos cuando entremos a la página, usando el objeto window y con un event listener de tipo "load"
-window.addEventListener("load", renderProducts);
-
-
-
-const getProducts = async () => {
+const obtenerProdsFetch = async () => {
     try {
-        const response = await fetch("/api/products");
-        const products = await response.json();
-        return products;
+        const respuesta = await fetch("/api/productos");
+        const productos = await respuesta.json();
+        return productos;
     } catch (error) {
         console.log(error);
     }
 };
 
-export const API_ROUTES = {
-    getProducts,
+const tablaProductos = async (productos) => {
+    const archivoPlantilla = await fetch("vistas/tablaProductos.hbs");
+    const plantillaTexto = await archivoPlantilla.text();
+    const plantillaCompilada = Handlebars.compile(plantillaTexto);
+    return plantillaCompilada({ productos });
 };
 
+const renderizadoProductos = async () => {
+    const contenedorProductos = document.getElementById("ContenedorDeProds");
 
-const makeProductTable = async (products) => {
-    const archivoTemplate = await fetch("views/products-table.hbs");
-    const templateText = await archivoTemplate.text();
-    const templateCompiled = Handlebars.compile(templateText);
-    return templateCompiled({ products });
+    const productos = await obtenerProdsFetch();
+
+    contenedorProductos.innerHTML = await tablaProductos(productos);
 };
 
-export const utils = { makeProductTable };
+const botonObtener = document.getElementById("obtenerProductos");
 
+botonObtener.addEventListener("click", renderizadoProductos);
+
+//window.addEventListener("load", renderizadoProductos);
+
+
+
+
+/*
+para form productos index.html
+
+<div id="nuevoProducto">
+    <h1 id="prodTitulo"> Formulario productos </h1>
+    <form id="formularioProds">
+        <input type="text" name="titulo" placeholder="Titulo" class="nuevoProd_input">
+        <input type="number" name="precio" placeholder="Precio" class="nuevoProd_input">
+        <input type="text" name="imagen" placeholder="imagen" class="nuevoProd_input">
+        <button type="submit" id="nuevoProd_input">Subir</button>
+    </form>
+</div>
+
+<div>
+    <div>
+        <p></p>
+        <h5></h5>
+        <h5></h5>
+        <img src="" alt="">
+    </div>
+    <div>
+        <button id="actualizarProd">actualizar</button>
+    <button id="eliminarProd">eliminar</button>
+    </div>
+</div>
+*/
