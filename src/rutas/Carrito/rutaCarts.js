@@ -40,10 +40,6 @@ rutaCarrito.post("/:carritoId/productos", async (solicitud, respuesta) => {
     }
 })
 
-//////////////////////////////////////////////////////////////////////////////
-
-
-// LISTAR PRODS CARRITO
 rutaCarrito.get('/:carritoId/productos', async (solicitud, respuesta) =>{
     try {
         const { carritoId } = solicitud.params;
@@ -56,18 +52,16 @@ rutaCarrito.get('/:carritoId/productos', async (solicitud, respuesta) =>{
             
             if (!listadoProductos) return respuesta.send({ error: true, mensaje: "No se encontraron los productos solicitados"});
 
-            respuesta.send({success: true, productos: listadoProductos })
+            respuesta.send({success: true, productos: carrito.productos });
         }
     } catch (error) {
         respuesta.send({error: "Error al obtener la lista los productos del carrito"})
     }
 });
 
-// ELIMINAR PRODS X ID
-rutaCarrito.delete('/:carritoId/productos/productoId', async (solicitud, respuesta) =>{
+rutaCarrito.delete('/:carritoId/productos/:productoId', async (solicitud, respuesta) =>{
     try {
-        const { carritoId } = solicitud.params;
-        const { productoId } = solicitud.body;
+        const { carritoId, productoId } = solicitud.params;
 
         const carrito = await CarritoDao.obtenerXid(Number(carritoId));
         if (!carrito) { respuesta.send({error: "Error, no se encontro el carrito"})} 
@@ -76,21 +70,18 @@ rutaCarrito.delete('/:carritoId/productos/productoId', async (solicitud, respues
             const producto = await ProductoDao.obtenerXid(Number(productoId));
             if (!producto) return respuesta.send({error: "Error, no se encontro el producto"})
 
-            const elementoEncontradoIndex = carrito.productos.findIndex(elemento => elemento.id === productoId )
+            const elementoEncontradoIndex = carrito.productos.findIndex(elemento => elemento.id === Number(productoId))
             if (elementoEncontradoIndex === -1) return respuesta.send({error: "Error, no se encontro el producto"})
             carrito.productos.splice(elementoEncontradoIndex, 1)
-
-            respuesta.send({success: true, mensaje: "Se elimino correctamente el producto del carrito"})
         }
-        const carritoActualizado = await ProductoDao.actualizar(Number(carritoId), carrito)
-        respuesta.send({success: true, carrito: carritoActualizado })
+        const carritoActualizado = await CarritoDao.actualizar(Number(carritoId), carrito)
+        respuesta.send({success: true, mensaje: "Se elimino correctamente el producto del carrito", carrito: carritoActualizado})
 
     } catch (error) {
         respuesta.send({error: "Error al eliminar un producto del carrito"})
     }
 });
 
-// ELIMINAR TODOS 
 rutaCarrito.delete('/:carritoId', async (solicitud, respuesta) =>{
     try {
         const { carritoId } = solicitud.params;

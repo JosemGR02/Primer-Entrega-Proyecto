@@ -1,21 +1,5 @@
 [
    {
-      "timestamp": "2/11/2022 20:15:57",
-      "productos": [
-         {
-            "titulo": "pikachu modificado 22",
-            "descripcion": "AAAABBBB",
-            "codigo": "tg267gd726gh87",
-            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
-            "precio": 46000,
-            "stock": 10,
-            "timestamp": "2/11/2022 20:01:54",
-            "id": 4
-         }
-      ],
-      "id": 2
-   },
-   {
       "timestamp": "2/11/2022 21:45:55",
       "productos": [
          {
@@ -27,6 +11,36 @@
             "stock": 2,
             "timestamp": "2/11/2022 14:17:17",
             "id": 2
+         },
+         {
+            "titulo": "bulbasaur",
+            "descripcion": "pokemon Planta",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": 60000,
+            "stock": 5,
+            "timestamp": "2/11/2022 14:17:39",
+            "id": 3
+         },
+         {
+            "titulo": "pikachu modificado 22",
+            "descripcion": "AAAABBBB",
+            "codigo": "tg267gd726gh87",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": 46000,
+            "stock": 10,
+            "timestamp": "2/11/2022 20:01:54",
+            "id": 4
+         },
+         {
+            "titulo": "pikachu modificado 22",
+            "descripcion": "AAAABBBB",
+            "codigo": "tg267gd726gh87",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": 46000,
+            "stock": 10,
+            "timestamp": "2/11/2022 20:01:54",
+            "id": 4
          }
       ],
       "id": 3

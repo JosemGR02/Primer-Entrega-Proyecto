@@ -1,0 +1,59 @@
+Buen día, Jose. Disculpá por la demora, tenía un montón de preentregas para corregir y no me pude poner antes
+
+Estuve viendo tu repo y está bastante bien la entrega. Tenés unos cuantos detalles pero me centré en lo que me dijiste que no te funcionaba
+
+Vamos por partes
+
+Actualizar productos funciona bien, lo tenes que hacer 2 veces en postman porque el contenedor devuelve el producto encontrado antes de actualizarse. Entonces mandas la petición, actualiza el producto y devuelve el producto antes de actualizarse. Cuando envías la segunda te devuelve el producto ya actualizado que es el que está en el json de productos
+
+Si queres corregir eso tendrias que revisar el metodo update del contenedor
+
+El listado de productos de un carrito no te funciona porque estás trayendo el array de productos entero, desde el dao de productos. tendrias que cambiar esto
+
+respuesta.send({success: true, productos: listadoProductos });
+
+Por esto otro
+
+respuesta.send({success: true, productos: carrito.productos })
+
+O bien… respuesta.send({success: true, productos: carrito })
+
+La ruta para borrar productos de un carrito no te funciona por varias cosas
+
+Primero, hay varias formas de hacerlo, pero lo corregí para que funcione sin tener que enviar el id de producto por body. so, primero habría que cambiar la definición de la ruta de esta manera:
+
+rutaCarrito.delete(‘/:carritoId/productos/productoId’, async (solicitud, respuesta) =>{
+
+Por: rutaCarrito.delete(‘/:carritoId/productos/:productoId’, async (solicitud, respuesta) \=>{
+
+Luego borrar esta línea const { productoId } = solicitud.body; y modificar la de arriba para que quede…
+
+const { carritoId, productoId} = solicitud.params;
+
+Cambiar esta línea: const elementoEncontradoIndex = carrito.productos.findIndex(elemento => elemento.id === productoId )
+
+por:
+
+const elementoEncontradoIndex = carrito.productos.findIndex(elemento \=> elemento.id === Number(productoId) )
+
+a productoId le falta el Number()
+
+Fijate que aca estas usando el dao incorrecto:
+
+const carritoActualizado = await ProductoDao.actualizar(Number(carritoId), carrito)
+
+debería ser:
+
+const carritoActualizado = await CarritoDao.actualizar(Number(carritoId), carrito)
+
+Y por último estás enviando 2 respuestas al cliente, una que dice
+
+respuesta.send({success: true, mensaje: “Se elimino correctamente el producto del carrito”});
+
+Y otra:
+
+respuesta.send({success: true, carrito: carritoActualizado })
+
+Eso no se puede, te va a dar error. yo dejaria solo la primera
+
+Y con esos cambios ya debería funcionar, perdón por tanto mensaje ;)
